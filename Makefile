@@ -1,5 +1,5 @@
-challan: challan.cpp
-	g++ challan.cpp -o challan `pkg-config --cflags --libs opencv4`
+challan: Challans/challan.cpp
+	g++ Challans/challan.cpp -o challan `pkg-config --cflags --libs opencv4`
 
 run-challan: challan
 	./challan
@@ -12,22 +12,22 @@ run-pseudo: pseudo_echallan
 	./pseudo_echallan
 
 
-registration: registration.cpp
-	g++ registration.cpp -o registration
+registration: Registrations/registration.cpp
+	g++ Registrations/registration.cpp -o registration
 
 run-registration: registration
 	./registration
 
 
-bank: bank.cpp
-	g++ bank.cpp -o bank
+bank: Finances/bank.cpp
+	g++ Finances/bank.cpp -o bank
 
 run-bank: bank
 	./bank
 
 
-payChallan: payChallan.cpp
-	g++ bank.cpp -o bank
+payChallan: Finances/payChallan.cpp
+	g++ Finances/payChallan.cpp -o payChallan
 
 run-pay: payChallan
 	./payChallan
