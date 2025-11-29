@@ -14,6 +14,12 @@ using namespace std;
 
 //Registrations
 void vehicleRegistration(string vehicleNum,string wheels, string owner,string email,string address);
-void accRegistration(string owner,string email,string address);
+void accRegistration(string owner,string email, string password, string address, int money = 0);
+
+//Bank
+bool accExist(const string& email);
+bool bankLogin(string email, string password);
+void moneyDeposit(string email, int deposit);
+void moneyCredit(string email, int credit);
 
 #endif

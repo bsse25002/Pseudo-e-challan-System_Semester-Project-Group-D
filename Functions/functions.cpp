@@ -31,21 +31,28 @@ void from_json(const json& j, Vehicle& v) {
 struct Account {
     string owner;
     string email;
+    string password;
     string address;
+    int money;
 };
 
 void to_json(json& j, const Account& a) {
     j = json{{"owner", a.owner}, 
-        {"email", a.email}, 
-        {"address", a.address}};
+        {"email", a.email},
+        {"password", a.password}, 
+        {"address", a.address},
+        {"money", a.money}};
 }
 
 void from_json(const json& j, Account& a) {
     j.at("owner").get_to(a.owner);
     j.at("email").get_to(a.email);
+    j.at("password").get_to(a.password);
     j.at("address").get_to(a.address);
+    j.at("money").get_to(a.money);
 }
 
+//Vehicle Registration
 void vehicleRegistration(string vehicleNum,string wheels, string owner,string email,string address) {
     Vehicle vehicle{vehicleNum, wheels, owner, email, address};
 
@@ -78,8 +85,9 @@ void vehicleRegistration(string vehicleNum,string wheels, string owner,string em
     cout << "Vehicle Registered Successfully!" << endl;
 }
 
-void accRegistration(string owner,string email,string address) {
-    Account acc{owner, email, address};
+//Account Registration
+void accRegistration(string owner, string email, string password, string address, int money) {
+    Account acc{owner, email, password, address, money};
 
     json j;
     ifstream read("./Finances/Accounts.json");
@@ -108,4 +116,87 @@ void accRegistration(string owner,string email,string address) {
     outFile.close();
 
     cout << "Account registered successfully!" << endl;
+}
+
+
+//**********Registrations**********\\
+
+//Check if Account Exist
+bool accExist(const string& email) {
+    json j;
+    ifstream read("./Finances/Accounts.json");
+    if (read.is_open()) {
+        read >> j;
+        read.close();
+    }
+
+    for (const auto& entry : j) {
+        if (entry["email"] == email) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+//Check Password
+bool bankLogin(string email, string password) {
+    json j;
+    ifstream read("./Finances/Accounts.json");
+    if (read.is_open()) {
+        read >> j;
+        read.close();
+    }
+
+    for (const auto& entry : j) {
+        if (entry["email"] == email && entry["password"] == password) {  
+            return true;
+        }
+    }
+
+    return false;
+}
+
+//Money Deposit
+void moneyDeposit(string email, int deposit) {
+    json j;
+    ifstream read("./Finances/Accounts.json");
+    if (read.is_open()) {
+        read >> j;
+        read.close();
+    }
+
+    for (auto& entry : j) {
+        if (entry["email"] == email) {  
+            entry["money"] = entry["money"].get<int>()+deposit;
+        }
+    }
+
+    ofstream write("./Finances/Accounts.json");
+    if (write.is_open()) {
+        write << j.dump(4);
+        write.close();
+    }
+}
+
+//Money Credit
+void moneyCredit(string email, int credit) {
+    json j;
+    ifstream read("./Finances/Accounts.json");
+    if (read.is_open()) {
+        read >> j;
+        read.close();
+    }
+
+    for (auto& entry : j) {
+        if (entry["email"] == email) {  
+            entry["money"] = entry["money"].get<int>()-credit;
+        }
+    }
+
+    ofstream write("./Finances/Accounts.json");
+    if (write.is_open()) {
+        write << j.dump(4);
+        write.close();
+    }
 }

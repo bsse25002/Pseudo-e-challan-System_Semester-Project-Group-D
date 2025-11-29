@@ -13,16 +13,18 @@ void registrationMenu() {
     else if (choice == 1) {
         cout << "Bank Registration Selected" << endl;
 
-        string owner, email, address;
+        string owner, email, password, address;
         
         cout << "Enter Your Name: ";
         cin >> owner;
         cout << "Enter Your email: ";
         cin >> email;
+        cout << "Select a password: ";
+        cin >> password;
         cout << "Enter Your address: ";
         cin >> address;
 
-        accRegistration(owner, email, address);
+        accRegistration(owner, email, password, address);
     } 
     else if (choice == 2) {
         cout << "vehicle Registration Selected" << endl;
