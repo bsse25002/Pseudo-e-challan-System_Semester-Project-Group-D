@@ -50,7 +50,7 @@ void vehicleRegistration(string vehicleNum,string wheels, string owner,string em
     Vehicle vehicle{vehicleNum, wheels, owner, email, address};
 
     json j;
-    ifstream read("./Registrations/Vehicle Registration.json");
+    ifstream read("./Challans/Vehicle Registration.json");
     if(read.is_open()) {
         read >> j;
         read.close();
@@ -71,7 +71,7 @@ void vehicleRegistration(string vehicleNum,string wheels, string owner,string em
 
     j.push_back(vehicle);
 
-    ofstream write("./Registrations/Vehicle Registration.json");
+    ofstream write("./Challans/Vehicle Registration.json");
     write << j.dump(4);
     write.close();
 
@@ -82,7 +82,7 @@ void accRegistration(string owner,string email,string address) {
     Account acc{owner, email, address};
 
     json j;
-    ifstream read("./Registrations/Accounts.json");
+    ifstream read("./Finances/Accounts.json");
     if (read.is_open()) {
         read >> j;
         read.close();
@@ -103,7 +103,7 @@ void accRegistration(string owner,string email,string address) {
 
     j.push_back(acc);
 
-    ofstream outFile("./Registrations/Accounts.json");
+    ofstream outFile("./Finances/Accounts.json");
     outFile << j.dump(4);
     outFile.close();
 
