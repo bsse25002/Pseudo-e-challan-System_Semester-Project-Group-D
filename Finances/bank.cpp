@@ -9,8 +9,7 @@ void bankMenu(string email) {
     if (choice == 0) { //Recursion Base Case
         cout << "Thank you for Using our Bank!" << endl;
         return;
-    } 
-    else if (choice == 1) {
+    } else if (choice == 1) {
         cout << "Money Deposit Selected!" << endl;
 
         int deposit;
@@ -19,8 +18,7 @@ void bankMenu(string email) {
         cin >> deposit;
 
         moneyDeposit(email, deposit);
-    } 
-    else if (choice == 2) {
+    } else if (choice == 2) {
         cout << "Money Credit Selected!" << endl;
 
         int credit;
@@ -29,8 +27,7 @@ void bankMenu(string email) {
         cin >> credit;
 
         moneyCredit(email, credit);
-    } 
-    else {
+    } else {
         cout << "Invalid Choice! Try Again" << endl;
     }
 

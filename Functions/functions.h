@@ -13,8 +13,9 @@ using json = nlohmann::json;
 using namespace std;
 
 //Registrations
-void vehicleRegistration(string vehicleNum,string wheels, string owner,string email,string address);
+void vehicleRegistration(string vehicleNum,int wheels, string owner,string email,string address);
 void accRegistration(string owner,string email, string password, string address, int money = 0);
+void registeredVehicles();
 
 //Bank
 bool accExist(const string& email);

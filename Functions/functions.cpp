@@ -5,7 +5,7 @@
 //Vehicle
 struct Vehicle {
     string vehicleNum;
-    string wheels;
+    int wheels;
     string owner;
     string email;
     string address;
@@ -53,7 +53,7 @@ void from_json(const json& j, Account& a) {
 }
 
 //Vehicle Registration
-void vehicleRegistration(string vehicleNum,string wheels, string owner,string email,string address) {
+void vehicleRegistration(string vehicleNum,int wheels, string owner,string email,string address) {
     Vehicle vehicle{vehicleNum, wheels, owner, email, address};
 
     json j;
@@ -118,8 +118,55 @@ void accRegistration(string owner, string email, string password, string address
     cout << "Account registered successfully!" << endl;
 }
 
+//Registered Vehicles
+void registeredVehicles() {
+    json j;
+    ifstream read("./Challans/Vehicle Registration.json");
+    if (read.is_open()) {
+        read >> j;
+        read.close();
+    }
 
-//**********Registrations**********\\
+    int rows = 0;
+    for (auto& entry : j) {
+        rows++;
+    }
+
+    int cols = 5; // email, owner, Vehicle Number, Type(Wheels), address
+
+    string** table = new string*[rows];
+    for (int i = 0; i < rows; i++)
+        table[i] = new string[cols];
+
+    int r = 0;
+    for (auto& entry : j) {
+        table[r][0] = entry["email"];
+        table[r][1] = entry["owner"];
+        table[r][2] = entry["vehicleNum"];
+        table[r][3] = "\t\t" + to_string(entry["wheels"].get<int>());
+        table[r][4] = entry["address"];
+        r++;
+    }
+
+    // Print table using escape sequences (\t)
+    cout << "E-Mail\t\t\tOwner\t\tVehicle Number\tType(Wheels)\tAddress\n";
+    cout << "--------------------------------------------------------------------------------\n";
+    for (int i = 0; i < rows; i++) {
+        for (int c = 0; c < cols; c++) {
+            cout << table[i][c] << "\t";
+        }
+        cout << "\n";
+    }
+
+    for (int i = 0; i < rows; i++) {
+        delete[] table[i];
+    }
+
+    delete[] table;
+}
+
+
+//**********Pseudo-Bank System**********\\
 
 //Check if Account Exist
 bool accExist(const string& email) {
