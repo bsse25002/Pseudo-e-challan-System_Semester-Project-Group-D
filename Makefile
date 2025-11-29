@@ -24,6 +24,13 @@ bank: bank.cpp
 
 run-bank: bank
 	./bank
+
+
+payChallan: payChallan.cpp
+	g++ bank.cpp -o bank
+
+run-pay: payChallan
+	./payChallan
 	
 
 all: cv registration bank challan
