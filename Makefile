@@ -1,8 +1,8 @@
 challan: Challans/challan.cpp
-	g++ Challans/challan.cpp Functions/functions.cpp -o challan `pkg-config --cflags --libs opencv4`
+	g++ Challans/challan.cpp Functions/functions.cpp -o Challans/challan `pkg-config --cflags --libs opencv4`
 
 run-challan: challan
-	./challan
+	./Challans/challan
 
 
 pseudo_echallan: pseudo_echallan.cpp
@@ -13,24 +13,24 @@ run-pseudo: pseudo_echallan
 
 
 registration: Registrations/registration.cpp
-	g++ Registrations/registration.cpp Functions/functions.cpp -o registration `pkg-config --cflags --libs opencv4`
+	g++ Registrations/registration.cpp Functions/functions.cpp -o Registrations/registration `pkg-config --cflags --libs opencv4`
 
 run-registration: registration
-	./registration
+	./Registrations/registration
 
 
 bank: Finances/bank.cpp
-	g++ Finances/bank.cpp Functions/functions.cpp -o bank `pkg-config --cflags --libs opencv4`
+	g++ Finances/bank.cpp Functions/functions.cpp -o Finances/bank `pkg-config --cflags --libs opencv4`
 
 run-bank: bank
-	./bank
+	./Finances/bank
 
 
 payChallan: Finances/payChallan.cpp
-	g++ Finances/payChallan.cpp Functions/functions.cpp -o payChallan `pkg-config --cflags --libs opencv4`
+	g++ Finances/payChallan.cpp Functions/functions.cpp -o Finances/payChallan `pkg-config --cflags --libs opencv4`
 
 run-pay: payChallan
-	./payChallan
+	./Finances/payChallan
 	
 
 all: cv registration bank challan
