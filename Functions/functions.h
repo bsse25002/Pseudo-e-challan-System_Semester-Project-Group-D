@@ -17,10 +17,4 @@ void vehicleRegistration(string vehicleNum,int wheels, string owner,string email
 void accRegistration(string owner,string email, string password, string address, int money = 0);
 void registeredVehicles();
 
-//Bank
-bool accExist(const string& email);
-bool bankLogin(string email, string password);
-void moneyDeposit(string email, int deposit);
-void moneyCredit(string email, int credit);
-
 #endif

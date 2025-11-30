@@ -1,7 +1,7 @@
 #include "../Functions/functions.h"
 
 void registrationMenu() {
-    cout << "\tWhat do you want to register for?\n\t\t0) Close The Registrations\n\t\t1) Bank Registration\n\t\t2) vehicle Registration\n\t\t3) View Registered Vehicles" << endl;
+    cout << "\tWhat do you want to register for?\n\t\t0) Close The Registrations\n\t\t1) Bank Registration\n\t\t2) vehicle Registration" << endl;
 
     int choice;
     cin >> choice;
@@ -42,10 +42,6 @@ void registrationMenu() {
         cin >> address;
 
         vehicleRegistration(vehicleNum, wheels, owner, email, address);
-    } else if (choice == 3) {
-        cout << "View Registered Vehicles Selected" << endl;
-
-        registeredVehicles();
     } else {
         cout << "Invalid Choice! Try Again" << endl;
     }
