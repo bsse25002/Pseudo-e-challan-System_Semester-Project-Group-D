@@ -1,3 +1,9 @@
+admin: Admin/adminControls.cpp
+	g++ Admin/adminControls.cpp Functions/functions.cpp -o Admin/adminControls `pkg-config --cflags --libs opencv4`
+
+run-admin: admin
+	./Admin/adminControls
+
 challan: Challans/challan.cpp
 	g++ Challans/challan.cpp Functions/functions.cpp -o Challans/challan `pkg-config --cflags --libs opencv4`
 
@@ -33,7 +39,7 @@ run-pay: payChallan
 	./Finances/payChallan
 	
 
-all: cv registration bank challan
+all: cv admin registration bank challan
 
 clean:
-	rm -f cv registration bank challan
+	rm -f cv admin registration bank challan
