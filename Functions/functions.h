@@ -15,6 +15,7 @@ using namespace std;
 //DMA for Payment Management
 void getSize(string file, int &rows, int &cols);
 void toArray(string file, string **arr, int rows, int cols);
+class Vector;
 
 //Admin Controls
 bool adminExist(string admin);
@@ -31,5 +32,8 @@ bool bankLogin(string email, string password);
 void moneyDeposit(string email, int deposit);
 void moneyCredit(string email, int credit);
 void payment(string email, string **acc, int rowsAcc, string **challan, int rowsCh);
+
+//Challans
+string vehicleExist(string vehicleNum);
 
 #endif

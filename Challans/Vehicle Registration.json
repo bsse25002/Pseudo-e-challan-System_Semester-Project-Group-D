@@ -5,5 +5,12 @@
         "owner": "Muhammad",
         "vehicleNum": "ABC-123",
         "wheels": 2
+    },
+    {
+        "address": "add",
+        "email": "hamza@gmail.com",
+        "owner": "Hamza",
+        "vehicleNum": "XYZ-123",
+        "wheels": 2
     }
 ]

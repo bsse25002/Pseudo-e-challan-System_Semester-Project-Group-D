@@ -146,6 +146,59 @@ void toArray(string file, string **arr, int rows, int cols) {
     }
 }
 
+//User Defined Vectors
+class Vector {
+    public:
+        int size;
+        int capacity;
+        int *arr;
+
+        Vector() {
+            size = 0;
+            capacity = 1;
+            arr = new int[1];
+        }
+
+        void add(int ele) {
+            if(size == capacity) {
+                capacity *= 2;
+                int *temp = new int[capacity];
+                for(int i = 0;i < size;i++) {
+                    temp[i] = arr[i];
+                }
+
+                arr = temp;
+            }
+
+            arr[size++] = ele;
+        }
+
+        void remove() {
+            if(size == 0) {
+                cout << "Empty Vector" << endl;
+            }
+
+            size--;
+        }
+
+        int get(int idx) {
+            if(size == 0) {
+                cout << "Empty Vector" << endl;
+                return -1;
+            }
+            if(idx >= size || idx < 0) {
+                cout << "Invalid Index" << endl;
+                return -1;
+            }
+
+            return arr[idx];
+        }
+
+        int Size() {
+            return size;
+        }
+};
+
 
 //**********Admin Controls**********\\
 
@@ -417,4 +470,42 @@ void payment(string email, string **acc, int rowsAcc, string **challan, int rows
     ofstream writeCh("./Challans/Challans.json");
     writeCh << jCh.dump(4);
     writeCh.close();
+}
+
+
+//**********E-Challan**********\\
+
+string vehicleExist(string vehicleNum) {
+    string Nadra = "Pseudo-Nadra@gmail.com", email;
+
+    string file = "./Challans/Vehicle Registration.json";
+    bool vehicle = false;
+        
+        int rows, cols;
+        getSize(file, rows, cols);
+
+        string **arr = new string*[rows];
+        for (int i = 0; i < rows; i++)
+            arr[i] = new string[cols];
+
+        toArray(file, arr, rows, cols);
+
+        for(int i = 1;i < rows;i++) {
+            if(arr[i][3] == vehicleNum) {
+                email = arr[i][1];
+                vehicle = true;
+            }
+        }
+
+        if(vehicle) {
+            return email;
+        } else {
+            return Nadra;
+        }
+
+        for (int i = 0; i < rows; i++)
+            delete[] arr[i];
+        delete[] arr;
+
+        return "";
 }

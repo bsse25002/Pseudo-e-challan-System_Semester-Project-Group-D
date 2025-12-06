@@ -31,31 +31,35 @@ void bankMenu(string email) {
         cout << "Challan Payment Selected!" << endl;
 
         string accounts = "./Finances/Accounts.json", challans = "./Challans/Challans.json";
-        
-        int rowAcc, colAcc, rowCh, colCh;
-        getSize(accounts, rowAcc, colAcc);
-        getSize(challans, rowCh, colCh);
 
-        string **acc = new string*[rowAcc];
-        for (int i = 0; i < rowAcc; i++)
-            acc[i] = new string[colAcc];
+            try {
+                int rowAcc, colAcc, rowCh, colCh;
+                getSize(accounts, rowAcc, colAcc);
+                getSize(challans, rowCh, colCh);
 
-        string **challan = new string*[rowCh];
-        for (int i = 0; i < rowCh; i++)
-            challan[i] = new string[colCh];
+                string **acc = new string*[rowAcc];
+                for (int i = 0; i < rowAcc; i++)
+                    acc[i] = new string[colAcc];
 
-        toArray(accounts, acc, rowAcc, colAcc);
-        toArray(challans, challan, rowCh, colCh);
+                string **challan = new string*[rowCh];
+                for (int i = 0; i < rowCh; i++)
+                    challan[i] = new string[colCh];
 
-        payment(email, acc, rowAcc, challan, rowCh);
+                toArray(accounts, acc, rowAcc, colAcc);
+                toArray(challans, challan, rowCh, colCh);
 
-        for (int i = 0; i < rowAcc; i++)
-            delete[] acc[i];
-        delete[] acc;
+                payment(email, acc, rowAcc, challan, rowCh);
 
-        for (int i = 0; i < rowCh; i++)
-            delete[] challan[i];
-        delete[] challan;
+                for (int i = 0; i < rowAcc; i++)
+                    delete[] acc[i];
+                delete[] acc;
+
+                for (int i = 0; i < rowCh; i++)
+                    delete[] challan[i];
+                delete[] challan;
+            } catch(...) {
+                cout << "No Challans at the Moment!" << endl;
+            }
 
     } else {
         cout << "Invalid Choice! Try Again" << endl;

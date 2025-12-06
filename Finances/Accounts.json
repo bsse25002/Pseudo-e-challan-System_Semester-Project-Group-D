@@ -2,8 +2,22 @@
     {
         "address": "456",
         "email": "muhammad@gmail.com",
-        "money": 500,
+        "money": 1000,
         "owner": "Muhammad",
+        "password": "123"
+    },
+    {
+        "address": "add",
+        "email": "hamza@gmail.com",
+        "money": 4500,
+        "owner": "Hamza",
+        "password": "123"
+    },
+    {
+        "address": "123",
+        "email": "minahil@gmail.com",
+        "money": 0,
+        "owner": "Minahil",
         "password": "123"
     }
 ]

@@ -1,1 +1,10 @@
-null
+[
+    {
+        "address": "456",
+        "amount": 500,
+        "challanNo": 1,
+        "email": "muhammad@gmail.com",
+        "owner": "Muhammad",
+        "vehicleNum": "ABC-123"
+    }
+]

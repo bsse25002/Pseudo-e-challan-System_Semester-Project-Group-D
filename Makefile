@@ -1,45 +1,61 @@
-admin: Admin/adminControls.cpp
-	g++ Admin/adminControls.cpp Functions/functions.cpp -o Admin/adminControls `pkg-config --cflags --libs opencv4`
+# ====== Output Files ======
+ADMIN_OUT = Admin/adminControls.out
+CHALLAN_OUT = Challans/challan.out
+PSEUDO_OUT = pseudo_echallan.out
+REG_OUT = Registrations/registration.out
+BANK_OUT = Finances/bank.out
+
+# ====== Common Sources ======
+COMMON = Functions/functions.cpp
+
+# ====== Admin ======
+admin: $(ADMIN_OUT)
+
+$(ADMIN_OUT): Admin/adminControls.cpp $(COMMON)
+	g++ Admin/adminControls.cpp $(COMMON) -o $(ADMIN_OUT) `pkg-config --cflags --libs opencv4`
 
 run-admin: admin
-	./Admin/adminControls
+	./$(ADMIN_OUT)
 
-challan: Challans/challan.cpp
-	g++ Challans/challan.cpp Functions/functions.cpp -o Challans/challan `pkg-config --cflags --libs opencv4`
+# ====== Challan ======
+challan: $(CHALLAN_OUT)
+
+$(CHALLAN_OUT): Challans/challan.cpp $(COMMON)
+	g++ Challans/challan.cpp $(COMMON) -o $(CHALLAN_OUT) `pkg-config --cflags --libs opencv4`
 
 run-challan: challan
-	./Challans/challan
+	./$(CHALLAN_OUT)
 
+# ====== Pseudo E-Challan ======
+pseudo: $(PSEUDO_OUT)
 
-pseudo_echallan: pseudo_echallan.cpp
-	g++ pseudo_echallan.cpp Functions/functions.cpp -o pseudo_echallan `pkg-config --cflags --libs opencv4`
+$(PSEUDO_OUT): pseudo_echallan.cpp $(COMMON)
+	g++ pseudo_echallan.cpp $(COMMON) -o $(PSEUDO_OUT) `pkg-config --cflags --libs opencv4`
 
-run-pseudo: pseudo_echallan
-	./pseudo_echallan
+run-pseudo: pseudo
+	./$(PSEUDO_OUT)
 
+# ====== Registration ======
+registration: $(REG_OUT)
 
-registration: Registrations/registration.cpp
-	g++ Registrations/registration.cpp Functions/functions.cpp -o Registrations/registration `pkg-config --cflags --libs opencv4`
+$(REG_OUT): Registrations/registration.cpp $(COMMON)
+	g++ Registrations/registration.cpp $(COMMON) -o $(REG_OUT) `pkg-config --cflags --libs opencv4`
 
 run-registration: registration
-	./Registrations/registration
+	./$(REG_OUT)
 
+# ====== Bank System ======
+bank: $(BANK_OUT)
 
-bank: Finances/bank.cpp
-	g++ Finances/bank.cpp Functions/functions.cpp -o Finances/bank `pkg-config --cflags --libs opencv4`
+$(BANK_OUT): Finances/bank.cpp $(COMMON)
+	g++ Finances/bank.cpp $(COMMON) -o $(BANK_OUT) `pkg-config --cflags --libs opencv4`
 
 run-bank: bank
-	./Finances/bank
+	./$(BANK_OUT)
 
+# ====== Build Everything ======
+all: admin challan pseudo registration bank
 
-payChallan: Finances/payChallan.cpp
-	g++ Finances/payChallan.cpp Functions/functions.cpp -o Finances/payChallan `pkg-config --cflags --libs opencv4`
-
-run-pay: payChallan
-	./Finances/payChallan
-	
-
-all: cv admin registration bank challan
-
+# ====== Clean ======
 clean:
-	rm -f cv admin registration bank challan
+	rm -f $(ADMIN_OUT) $(CHALLAN_OUT) $(PSEUDO_OUT) $(REG_OUT) $(BANK_OUT)
