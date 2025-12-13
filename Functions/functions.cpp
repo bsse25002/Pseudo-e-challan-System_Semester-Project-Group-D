@@ -191,6 +191,7 @@ void vehicleRegistration(string vehicleNum,int wheels, string owner,string email
 
     if (exists) {
         cout << "Vehicle with number " << vehicleNum << " is already registered!" << endl;
+        sendEmailAsync(email, "Vehicle Already Registered", "Your Vehicle " + vehicleNum + " has already been Registered against " + email);
         return;
     }
 
@@ -201,6 +202,7 @@ void vehicleRegistration(string vehicleNum,int wheels, string owner,string email
     write.close();
 
     cout << "Vehicle Registered Successfully!" << endl;
+    sendEmailAsync(email, "Vehicle Registration Notification", "Your Vehicle " + vehicleNum + " has been Registered against " + email);
 }
 
 //Account Registration
@@ -224,6 +226,7 @@ void accRegistration(string owner, string email, string password, string address
 
     if (exists) {
         cout << "Account with email " << email << " already exists!" << endl;
+        sendEmailAsync(email, "Account Already Registered", "Account Already Registered against " + email);
         return;
     }
 
@@ -234,6 +237,7 @@ void accRegistration(string owner, string email, string password, string address
     outFile.close();
 
     cout << "Account registered successfully!" << endl;
+    sendEmailAsync(email, "Account Registration Notification", "Your Account has been Registered in our Bank against " + email);
 }
 
 
@@ -310,7 +314,7 @@ void moneyCredit(string email, int credit) {
         if (entry["email"] == email) {  
             if((entry["money"].get<int>()-credit) >= 0) {
                 entry["money"] = entry["money"].get<int>()-credit;
-                sendEmailAsync(email, "Money Credit Notification", "An amount of" + to_string(credit) + " is creditted from your account!");
+                sendEmailAsync(email, "Money Credit Notification", "An amount of " + to_string(credit) + " is creditted from your account!");
             } else {
                 cout << "Not Enough Money!" << endl;
                 sendEmailAsync(email, "Money Credit Limit Exceed Notification", "Not Enough Money to Credit!");
@@ -504,18 +508,19 @@ void sendEmail(const string &to, const string &subject, const string &body, cons
 
     struct curl_slist* recipients = nullptr;
     recipients = curl_slist_append(recipients, to.c_str());
-    curl_easy_setopt(curl, CURLOPT_MAIL_RCPT, recipients);
 
+    curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1L);
+    curl_easy_setopt(curl, CURLOPT_MAIL_RCPT, recipients);
     curl_easy_setopt(curl, CURLOPT_READFUNCTION, payload_source);
     curl_easy_setopt(curl, CURLOPT_READDATA, &emailData);
+    curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 10L);
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT, 30L);
     curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
-    curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+    curl_easy_setopt(curl, CURLOPT_VERBOSE, 0L);
 
     CURLcode res = curl_easy_perform(curl);
     if (res != CURLE_OK) {
         cerr << "Email failed: " << curl_easy_strerror(res) << "\n";
-    } else {
-        cout << "Email sent successfully!\n";
     }
 
     curl_slist_free_all(recipients);
@@ -642,11 +647,15 @@ float computeIoU(const Rect& a, const Rect& b) { //Calculates the Intersection o
     return 0.0f;
 }
 
-Vector<string> readClasses(const string& path) { //Reads class names (YOLO/COCO classes) from a .txt file
+Vector<string> readClasses(const string& path) {
     Vector<string> cls;
     ifstream file(path);
-    string line;
+    if (!file.is_open()) {
+        cout << "Cannot open classes file: " << path << endl;
+        return cls;
+    }
 
+    string line;
     while (getline(file, line)) {
         if (!line.empty()) {
             cls.add(line);
@@ -1085,6 +1094,7 @@ void processVideo(const string& videoSource) { //Processing Given VideoSource
     // Read classes
     Vector<string> classes = readClasses(CONFIG.classFile);
     int personClass=-1, helmetClass=-1, motorbikeClass=-1, bicycleClass=-1, carClass=-1, trafficLightClass=-1;
+    
     for(int i=0;i<classes.size;i++) {
         string c=classes.get(i);
 

@@ -108,19 +108,20 @@ struct Challans {
 //Config
 struct AppConfig {
     //YOLO files
-    std::string yoloCfg = "Resources/yolov4.cfg";
-    std::string yoloWeights = "Resources/yolov4.weights";
-    std::string classFile = "Resources/classes.txt";
+    string yoloCfg = "Resources/yolov4.cfg";
+    string yoloWeights = "Resources/yolov4.weights";
+    string classFile = "Resources/classes.txt";
 
     //Cascades
-    std::string plateCascade = "Resources/haarcascade_russian_plate_number.xml";
+    string plateCascade = "Resources/haarcascade_russian_plate_number.xml";
+    string facCascade = "Resources/haarcascade_frontalface_default.xml";
 
     //Paths
-    std::string violationDir = "Violators/";
-    std::string challanCounterFile = "Violators/last_challan_no.txt";
+    string violationDir = "Violators/";
+    string challanCounterFile = "Violators/last_challan_no.txt";
 
     //IP CAM default
-    std::string liveFeedURL = "http://192.168.100.158:8080/video";
+    string liveFeedURL = "http://192.168.100.158:8080/video";
 
     //Detection parameters
     float CONF_THRESHOLD = 0.4f; //Minimum confidence score required to accept a detection (vehicle/person/helmet)

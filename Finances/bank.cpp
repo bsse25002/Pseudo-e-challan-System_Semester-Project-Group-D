@@ -18,7 +18,7 @@ void bankMenu(string email) {
         cin >> deposit;
 
         moneyDeposit(email, deposit);
-        sendEmailAsync(email, "Money Deposit Notification", "An amount of" + to_string(deposit) + " is deposited in your account!");
+        sendEmailAsync(email, "Money Deposit Notification", "An amount of " + to_string(deposit) + " is deposited in your account!");
     } else if (choice == 2) {
         cout << "Money Credit Selected!" << endl;
 
@@ -60,6 +60,7 @@ void bankMenu(string email) {
                 delete[] challan;
             } catch(...) {
                 cout << "No Challans at the Moment!" << endl;
+                sendEmailAsync(email, "Challan Payment", "You Currently have No Challans!");
             }
 
     } else {
