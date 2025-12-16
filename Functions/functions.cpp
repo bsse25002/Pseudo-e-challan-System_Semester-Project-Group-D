@@ -650,16 +650,15 @@ float computeIoU(const Rect& a, const Rect& b) { //Calculates the Intersection o
 Vector<string> readClasses(const string& path) {
     Vector<string> cls;
     ifstream file(path);
+    
     if (!file.is_open()) {
         cout << "Cannot open classes file: " << path << endl;
         return cls;
     }
 
-    string line;
-    while (getline(file, line)) {
-        if (!line.empty()) {
-            cls.add(line);
-        }
+    string word;
+    while (file >> word) {
+        cls.add(word);
     }
 
     return cls;
@@ -1094,24 +1093,24 @@ void processVideo(const string& videoSource) { //Processing Given VideoSource
     // Read classes
     Vector<string> classes = readClasses(CONFIG.classFile);
     int personClass=-1, helmetClass=-1, motorbikeClass=-1, bicycleClass=-1, carClass=-1, trafficLightClass=-1;
-    
-    for(int i=0;i<classes.size;i++) {
-        string c=classes.get(i);
 
-        if(c=="person") {
+    for(int i=0;i<classes.size;i++) {
+
+        if(classes.get(i)=="person") {
             personClass=i;
-        } else if(c=="helmet") {
+        } else if(classes.get(i)=="helmet") {
             helmetClass=i;
-        } else if(c=="motorbike") {
+        } else if(classes.get(i)=="motorbike") {
             motorbikeClass=i;
-        } else if(c=="bicycle") {
+        } else if(classes.get(i)=="bicycle") {
             bicycleClass=i;
-        } else if(c=="car") {
+        } else if(classes.get(i)=="car") {
             carClass=i;
-        } else if(c=="traffic_light") {
+        } else if(classes.get(i)=="traffic_light") {
             trafficLightClass=i;
         }
     }
+    
     if(personClass==-1 || helmetClass==-1) { 
         cout<<"Required classes missing\n"; 
         return; 
