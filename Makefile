@@ -22,7 +22,7 @@ EMAIL_LIBS = -lcurl -lssl -lcrypto -pthread
 admin: $(ADMIN_OUT)
 
 $(ADMIN_OUT): Admin/adminControls.cpp $(COMMON)
-	$(CXX) $(CXXFLAGS) Admin/adminControls.cpp $(COMMON) -o $(ADMIN_OUT) $(COMMON_LIBS)
+	$(CXX) $(CXXFLAGS) Admin/adminControls.cpp $(COMMON) -o $(ADMIN_OUT) $(COMMON_LIBS) $(EMAIL_LIBS)
 
 run-admin: admin
 	./$(ADMIN_OUT)
@@ -31,7 +31,7 @@ run-admin: admin
 challan: $(CHALLAN_OUT)
 
 $(CHALLAN_OUT): Challans/challan.cpp $(COMMON)
-	$(CXX) $(CXXFLAGS) Challans/challan.cpp $(COMMON) -o $(CHALLAN_OUT) $(COMMON_LIBS)
+	$(CXX) $(CXXFLAGS) Challans/challan.cpp $(COMMON) -o $(CHALLAN_OUT) $(COMMON_LIBS) $(EMAIL_LIBS)
 
 run-challan: challan
 	./$(CHALLAN_OUT)
@@ -49,7 +49,7 @@ run-pseudo: pseudo
 registration: $(REG_OUT)
 
 $(REG_OUT): Registrations/registration.cpp $(COMMON)
-	$(CXX) $(CXXFLAGS) Registrations/registration.cpp $(COMMON) -o $(REG_OUT) $(COMMON_LIBS)
+	$(CXX) $(CXXFLAGS) Registrations/registration.cpp $(COMMON) -o $(REG_OUT) $(COMMON_LIBS) $(EMAIL_LIBS)
 
 run-registration: registration
 	./$(REG_OUT)
@@ -58,7 +58,7 @@ run-registration: registration
 bank: $(BANK_OUT)
 
 $(BANK_OUT): Finances/bank.cpp $(COMMON)
-	$(CXX) $(CXXFLAGS) Finances/bank.cpp $(COMMON) -o $(BANK_OUT) $(COMMON_LIBS)
+	$(CXX) $(CXXFLAGS) Finances/bank.cpp $(COMMON) -o $(BANK_OUT) $(COMMON_LIBS) $(EMAIL_LIBS)
 
 run-bank: bank
 	./$(BANK_OUT)

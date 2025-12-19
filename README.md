@@ -8,4 +8,5 @@
 
 <b>Note:</b> Everything related to the project will be evaluated according to the given deadlines. Submissions made after the deadline will have a penalty.
 
-
+# Setup <br>
+<b>Additional Libraries:</b> <br> sudo apt update && sudo apt install -y build-essential g++ pkg-config libopencv-dev libleptonica-dev libleptonica-dev tesseract-ocr libtesseract-dev libcurl4-openssl-dev libssl-dev <br>
